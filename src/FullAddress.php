@@ -20,7 +20,7 @@ use aryelgois\utils\Database;
  * @author Aryel Mota Góis
  * @license MIT
  * @link https://www.github.com/aryelgois/objects
- * @version 0.1
+ * @version 0.1.1
  */
 class FullAddress extends Address
 {
@@ -89,5 +89,24 @@ class FullAddress extends Address
         $this->number = $number;
         $this->zipcode = $zipcode;
         $this->detail = $detail;
+    }
+    
+    /**
+     * Returns all stored data in an array
+     *
+     * @return array[]
+     */
+    public function dump()
+    {
+        return array_merge(
+            parent::dump(),
+            [
+                'neighborhood' => $this->neighborhood,
+                'street' => $this->street,
+                'number' => $this->number,
+                'zipcode' => $this->zipcode,
+                'detail' => $this->detail
+            ]
+        );
     }
 }

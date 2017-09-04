@@ -23,42 +23,62 @@ use aryelgois\utils\Database;
  *
  * @see https://www.github.com/aryelgois/utils
  *
- * Even though, some fields aren't available in the database and you need to set
- * them. These are for a more local information and should be provided by your
- * clients.
- *
  * @author Aryel Mota Góis
  * @license MIT
  * @link https://www.github.com/aryelgois/objects
- * @version 0.2
+ * @version 0.3
  */
 class Address
 {
     /**
-     * Handles database interaction. It is used for getting the county, state
-     * and country.
+     * Handles database interaction. It is used for getting the country, state
+     * and county.
      *
      * @var Database
      */
     protected $database;
     
     /**
-     * Holds all loaded data about the address.
+     * Up to now 195 countries exist
+     *
+     * Actually, there are a few more, but they aren't independent
      *
      * @var mixed[]
      */
-    public $data = [];
+    public $country;
+    
+    /**
+     * Usually, a country is divided into states
+     *
+     * It could be another name, but let's keep it simple. If you know a more
+     * generic name, please pull request on GitHub
+     *
+     * @var mixed[]
+     */
+    public $state;
+    
+    /**
+     * It's the city or a small town
+     *
+     * @var mixed[]
+     */
+    public $county;
     
     /**
      * Creates a new Address object
      *
-     * @param Database $database An object to handle database connection and
-     *                           other stuffs. Make sure it is connected to the
-     *                           address database
+     * @param Database $database  An object to handle database interaction. Make
+     *                            sure it is connected to the address database
+     * @param integer  $county_id An index in counties table
+     *
+     * @throws RuntimeException If could not load from Database
      */
-    public function __construct(Database $database)
+    public function __construct(Database $database, $county_id)
     {
         $this->database = $database;
+        if (!$this->loadData($county_id)) {
+            throw new RuntimeException('Could not load from Database');
+        }
     }
     
     /**
@@ -74,7 +94,7 @@ class Address
      *
      * @return boolean For success of failure
      */
-    public function loadData($county_id)
+    protected function loadData($county_id)
     {
         // fetch county
         $query = "SELECT `state`, `name` FROM `counties` WHERE `id` = ?";
@@ -105,35 +125,23 @@ class Address
         $state['id'] = $county['state'];
         $country['id'] = $state['country'];
         unset($county['state'], $state['country']);
-        $this->data['county'] = $county;
-        $this->data['state'] = $state;
-        $this->data['country'] = $country;
+        $this->country = $country;
+        $this->state = $state;
+        $this->county = $county;
         return true;
     }
     
     /**
-     * Allows you to set the missing fields after calling getData()
+     * Returns all stored data in an array
      *
-     * The keys in $data depends on your project. I recomend the following:
-     * - street:       Road, Avenue, these stuff
-     *
-     * - number:       Building numbers. should be an integer, but you can use a
-     *                 string like '13-A', or something to tell there is no
-     *                 number at all
-     *
-     * - neighborhood: A county's small division
-     *
-     * - zipcode:      Used by mailing to locate a place. It's implementation
-     *                 may vary from country to country
-     *
-     * - detail:       Here you put additional and complementary information
-     *
-     * @param mixed[] $data Its contents are merged into $this->data, so be
-     *                      careful not to replace the data from getData(),
-     *                      unless it is intentional.
+     * @return array[]
      */
-    public function setData($data)
+    public function dump()
     {
-        $this->data = array_replace($this->data, $data);
+        return [
+            'country' => $this->country,
+            'state' => $this->state,
+            'county' => $this->county
+        ];
     }
 }
