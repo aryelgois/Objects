@@ -20,7 +20,7 @@ use aryelgois\utils\Database;
  * @author Aryel Mota Góis
  * @license MIT
  * @link https://www.github.com/aryelgois/objects
- * @version 0.1.1
+ * @version 0.1.2
  */
 class FullAddress extends Address
 {
@@ -36,7 +36,7 @@ class FullAddress extends Address
      *
      * @var string
      */
-    public $street;
+    public $place;
     
     /**
      * Buildings' number. An apartment's should go into $details
@@ -69,7 +69,7 @@ class FullAddress extends Address
      * @param Database $database     An object to handle database interaction
      * @param string   $county_id    An index in counties table
      * @param string   $neighborhood See above
-     * @param string   $street       ..
+     * @param string   $place        ..
      * @param mixed    $number       ..
      * @param string   $zipcode      ..
      * @param string   $detail       Optional information
@@ -78,14 +78,14 @@ class FullAddress extends Address
         Database $database,
         $county_id,
         $neighborhood,
-        $street,
+        $place,
         $number,
         $zipcode,
         $detail = ''
     ) {
         parent::__construct($database, $county_id);
         $this->neighborhood = $neighborhood;
-        $this->street = $street;
+        $this->place = $place;
         $this->number = $number;
         $this->zipcode = $zipcode;
         $this->detail = $detail;
@@ -102,7 +102,7 @@ class FullAddress extends Address
             parent::dump(),
             [
                 'neighborhood' => $this->neighborhood,
-                'street' => $this->street,
+                'place' => $this->place,
                 'number' => $this->number,
                 'zipcode' => $this->zipcode,
                 'detail' => $this->detail
