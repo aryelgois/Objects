@@ -9,11 +9,12 @@
         }
     ],
     "require": {
-        "php": "^7.0"
+        "php": "^7.0",
+        "aryelgois/utils": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "aryelgois\\objects\\": "src/"
+            "aryelgois\\Objects\\": "src/"
         }
     }
 }

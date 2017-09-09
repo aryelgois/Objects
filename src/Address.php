@@ -1,13 +1,13 @@
 <?php
 /**
- * This Software is part of aryelgois\objects and is provided "as is".
+ * This Software is part of aryelgois\Objects and is provided "as is".
  *
  * @see LICENSE
  */
 
-namespace aryelgois\objects;
+namespace aryelgois\Objects;
 
-use aryelgois\utils\Database;
+use aryelgois\Utils\Database;
 
 /**
  * An Address object to reference a place in the world
@@ -17,16 +17,15 @@ use aryelgois\utils\Database;
  *
  * @see https://www.github.com/aryelgois/databases
  *
- * Also, to access the database, this class uses aryelgois\utils\Database to
+ * Also, to access the database, this class uses aryelgois\Utils\Database to
  * handle the connection. As it is an abstract class, you have to extend it and
  * provide your method for database errors, accordingly to your project needs.
  *
- * @see https://www.github.com/aryelgois/utils
+ * @see https://www.github.com/aryelgois/Utils
  *
  * @author Aryel Mota Góis
  * @license MIT
- * @link https://www.github.com/aryelgois/objects
- * @version 0.3
+ * @link https://www.github.com/aryelgois/Objects
  */
 class Address
 {

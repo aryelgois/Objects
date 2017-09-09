@@ -1,13 +1,13 @@
 <?php
 /**
- * This Software is part of aryelgois\objects and is provided "as is".
+ * This Software is part of aryelgois\Objects and is provided "as is".
  *
  * @see LICENSE
  */
 
-namespace aryelgois\objects;
+namespace aryelgois\Objects;
 
-use aryelgois\utils\Database;
+use aryelgois\Utils\Database;
 
 /**
  * A Full Address object to reference a specific place in the world
@@ -19,8 +19,7 @@ use aryelgois\utils\Database;
  *
  * @author Aryel Mota Góis
  * @license MIT
- * @link https://www.github.com/aryelgois/objects
- * @version 0.1.2
+ * @link https://www.github.com/aryelgois/Objects
  */
 class FullAddress extends Address
 {

@@ -1,13 +1,13 @@
 <?php
 /**
- * This Software is part of aryelgois\objects and is provided "as is".
+ * This Software is part of aryelgois\Objects and is provided "as is".
  *
  * @see LICENSE
  */
 
-namespace aryelgois\objects;
+namespace aryelgois\Objects;
 
-use aryelgois\utils;
+use aryelgois\Utils\Validation;
 
 /**
  * A Person object defines someone in the real world. It is a basic setup and
@@ -15,8 +15,7 @@ use aryelgois\utils;
  *
  * @author Aryel Mota Góis
  * @license MIT
- * @link https://www.github.com/aryelgois/objects
- * @version 0.1.1
+ * @link https://www.github.com/aryelgois/Objects
  */
 class Person
 {
@@ -78,10 +77,10 @@ class Person
     public static function validateDocument($doc)
     {
         $type = 1;
-        $number = utils\Validation::cpf($doc);
+        $number = Validation::cpf($doc);
         if ($number == false) {
             $type = 2;
-            $number = utils\Validation::cnpj($doc);
+            $number = Validation::cnpj($doc);
         }
         if ($number == false) {
             throw new \UnexpectedValueException('Not a valid document');
