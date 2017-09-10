@@ -74,8 +74,7 @@ class Address
      */
     public function __construct(Database $database, $county_id)
     {
-        $this->database = $database;
-        if (!$this->loadData($county_id)) {
+        if (!$this->loadData($database, $county_id)) {
             throw new RuntimeException('Could not load from Database');
         }
     }
@@ -93,11 +92,11 @@ class Address
      *
      * @return boolean For success of failure
      */
-    protected function loadData($county_id)
+    protected function loadData(Database $database, $county_id)
     {
         // fetch county
         $query = "SELECT `state`, `name` FROM `counties` WHERE `id` = ?";
-        $county = Database::fetch($this->database->prepare($query, 'i', [$county_id]));
+        $county = Database::fetch($database->prepare($query, 'i', [$county_id]));
         if (empty($county)) {
             return false;
         }
@@ -105,7 +104,7 @@ class Address
         
         // fetch state
         $query = "SELECT `country`, `code`, `name` FROM `states` WHERE `id` = ?";
-        $state = Database::fetch($this->database->prepare($query, 'i', [$county['state']]));
+        $state = Database::fetch($database->prepare($query, 'i', [$county['state']]));
         if (empty($state)) {
             return false;
         }
@@ -113,7 +112,7 @@ class Address
         
         // fetch country
         $query = "SELECT `code_a2`, `code_a3`, `code_number`, `name_en`, `name_local` FROM `countries` WHERE `id` = ?";
-        $country = Database::fetch($this->database->prepare($query, 'i', [$state['country']]));
+        $country = Database::fetch($database->prepare($query, 'i', [$state['country']]));
         if (empty($country)) {
             return false;
         }

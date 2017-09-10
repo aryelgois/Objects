@@ -7,7 +7,7 @@
 
 namespace aryelgois\Objects;
 
-use aryelgois\Utils\Validation;
+use aryelgois\Utils;
 
 /**
  * A Person object defines someone in the real world. It is a basic setup and
@@ -77,14 +77,29 @@ class Person
     public static function validateDocument($doc)
     {
         $type = 1;
-        $number = Validation::cpf($doc);
+        $number = Utils\Validation::cpf($doc);
         if ($number == false) {
             $type = 2;
-            $number = Validation::cnpj($doc);
+            $number = Utils\Validation::cnpj($doc);
         }
         if ($number == false) {
             throw new \UnexpectedValueException('Not a valid document');
         }
         return ['type' => $type, 'number' => $number];
+    }
+    
+    /**
+     * Formats a Person Document
+     *
+     * @return string
+     */
+    public function formatDocument()
+    {
+        if ($this->document['type'] == 1) {
+            return Utils\Format::cpf($this->document['number']);
+        } elseif ($this->document['type'] == 2) {
+            return Utils\Format::cnpj($this->document['number']);
+        }
+        return $this->document['number'];
     }
 }
