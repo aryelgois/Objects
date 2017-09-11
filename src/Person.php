@@ -91,14 +91,16 @@ class Person
     /**
      * Formats a Person Document
      *
+     * @param boolean $prepend If should prepend the document name
+     *
      * @return string
      */
-    public function formatDocument()
+    public function formatDocument($prepend = false)
     {
         if ($this->document['type'] == 1) {
-            return Utils\Format::cpf($this->document['number']);
+            return ($prepend ? 'CPF: ' : '') . Utils\Format::cpf($this->document['number']);
         } elseif ($this->document['type'] == 2) {
-            return Utils\Format::cnpj($this->document['number']);
+            return ($prepend ? 'CNPJ: ' : '') . Utils\Format::cnpj($this->document['number']);
         }
         return $this->document['number'];
     }
