@@ -1,3 +1,5 @@
+> **Deprecated**. See https://github.com/aryelgois/Medools
+
 # Intro
 
 ## (pt_BR)
